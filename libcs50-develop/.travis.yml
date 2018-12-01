@@ -1,0 +1,28 @@
+dist: trusty
+sudo: required
+branches:
+  except: "/^v\\d/"
+env:
+  matrix:
+  - DIST=precise DIST_VERSION=12.04
+  - DIST=trusty DIST_VERSION=14.04
+  - DIST=vivid DIST_VERSION=15.04
+  - DIST=xenial DIST_VERSION=16.04
+  - DIST=zesty DIST_VERSION=17.04
+before_install:
+- sudo apt-get install build-essential debhelper devscripts dh-make lintian
+- gem install asciidoctor
+install: true
+script: if [ "$TRAVIS_BRANCH" != "master" ]; then SIGNING_OPTS="-uc -us" make deb; fi
+before_deploy:
+  - echo -e $GPG_SECRET | gpg --import
+  - make deb
+deploy:
+  provider: script
+  script: dput ppa:cs50/ppa build/deb/*.changes
+  skip_cleanup: true
+  on:
+    branch: master
+notifications:
+  slack:
+    secure: ISOGlNSGXOrMBrKTnjTWQXVjjoBn78++xF1mUv/PYZxn3J4L4WpybLLjAuBENsD7YeHSaXUnSbIV5mDzlx5Q1cyrS+auGOHqi5xGV01zNBB1Fig1SkUf7zJS8KyjiPKyi+DexnTt1BY4xaA1uGzq9hoGZEPXKHNlz4v1I6f6fHQ=
