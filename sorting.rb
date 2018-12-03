@@ -2,6 +2,7 @@ length = 0
 numbers = []
 temp = 0
 it = 0
+j = 0
 
 loop do
   puts "How many numbers?"
@@ -17,11 +18,12 @@ end
 numbers.shuffle!
 print numbers
 
+# bubble sort
 loop do
   flip = true
-  it += 1
   i = 0
-  while numbers[i+1]
+  while numbers[i+1+j]
+    it += 1
     if numbers[i] > numbers[i+1]
       temp = numbers[i]
       numbers[i] = numbers[i+1]
@@ -30,8 +32,9 @@ loop do
     end
     i += 1
   end
-
-  while numbers[i-1]
+  
+  while i > 0 + j
+    it += 1
     if i > 0 && numbers[i] < numbers[i-1]
       temp = numbers[i]
       numbers[i] = numbers[i-1]
@@ -40,6 +43,7 @@ loop do
     end
     i -= 1
   end
+  j += 1
   break if flip
 end
 
