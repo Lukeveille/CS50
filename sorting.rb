@@ -1,6 +1,6 @@
 # initialize
 length = 0
-numbers = []
+initials = []
 temp = 0
 
 # shuffler
@@ -11,11 +11,13 @@ loop do
   puts "That's not a valid number!"
 end
 length.times do |i|
-  numbers << i
+  initials << i
 end
+initials.shuffle!
+print "#{initials}\n"
 
 # selection sort
-numbers.shuffle!
+numbers = initials.dup
 it = 0
 
 for i in 0..numbers.length
@@ -32,7 +34,7 @@ end
 puts "selection sort done in #{it} steps"
 
 # bubble sort
-numbers.shuffle!
+numbers = initials.dup
 it = 0
 j = 0
 
@@ -56,7 +58,7 @@ end
 puts "bubble sort done in #{it} steps"
 
 # cocktail sort
-numbers.shuffle!
+numbers = initials.dup
 it = 0
 j = 0
 
